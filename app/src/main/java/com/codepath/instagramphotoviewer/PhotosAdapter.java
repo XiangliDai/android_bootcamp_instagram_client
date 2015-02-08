@@ -14,9 +14,12 @@ import android.widget.TextView;
 import com.makeramen.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PhotosAdapter extends ArrayAdapter<InstagramPhoto> {
+    private List<InstagramPhoto> photos;
+
     private static class ViewHolder {
         TextView username;
         TextView caption;
@@ -29,11 +32,16 @@ public class PhotosAdapter extends ArrayAdapter<InstagramPhoto> {
 
     public PhotosAdapter(Context context, List<InstagramPhoto> objects) {
         super(context, 0, objects);
+        photos = objects;
+    }
+
+    public void UpdateDataList(ArrayList<InstagramPhoto> objects) {
+        photos = objects;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        InstagramPhoto photo = getItem(position);
+        InstagramPhoto photo = photos.get(position);
         ViewHolder viewHolder;
         if(convertView == null){
             viewHolder = new ViewHolder();

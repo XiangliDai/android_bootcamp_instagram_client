@@ -1,6 +1,7 @@
 package com.codepath.instagramphotoviewer;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -22,17 +23,32 @@ public class PhotosActivity extends ActionBarActivity {
     private static final String CLIENT_ID="001464b81b8b4d4c8c7b886ea9bbedc1";
     private static final String TAG = PhotosActivity.class.getSimpleName();
     private ArrayList<InstagramPhoto> photos;
+    private ListView lvPhotos;
     private PhotosAdapter photosAdapter;
     private static final int COMMENTS_COUNT = 2;
+    private SwipeRefreshLayout swipeContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
         photos = new ArrayList<>();
-        photosAdapter = new PhotosAdapter(this,photos);
-        ListView lvPhotos = (ListView) findViewById(R.id.lvphotos);
+        photosAdapter = new PhotosAdapter(this, photos);
+        lvPhotos = (ListView) findViewById(R.id.lvphotos);
         lvPhotos.setAdapter(photosAdapter);
         fetchPopularPhotos();
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPopularPhotos();
+            }
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     private void fetchPopularPhotos() {
@@ -42,6 +58,10 @@ public class PhotosActivity extends ActionBarActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
+                    if(swipeContainer.isRefreshing()){
+                        swipeContainer.setRefreshing(false);
+                        photos = new ArrayList<>();
+                    }
                     JSONArray jsonArray = response.getJSONArray("data");
                     for(int i=0; i<jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -87,10 +107,12 @@ public class PhotosActivity extends ActionBarActivity {
                         }else{
                             photo.comments = null;
                         }
-
                          photos.add(photo);
                     }
+
+                    photosAdapter.UpdateDataList(photos);
                     photosAdapter.notifyDataSetChanged();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e(TAG, "Parse data failed: " + e.getMessage());
