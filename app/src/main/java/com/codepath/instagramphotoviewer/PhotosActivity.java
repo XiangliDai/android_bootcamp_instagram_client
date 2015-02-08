@@ -23,6 +23,7 @@ public class PhotosActivity extends ActionBarActivity {
     private static final String TAG = PhotosActivity.class.getSimpleName();
     private ArrayList<InstagramPhoto> photos;
     private PhotosAdapter photosAdapter;
+    private static final int COMMENTS_COUNT = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +74,20 @@ public class PhotosActivity extends ActionBarActivity {
                             photo.imageUrl = "";
                             photo.imageHeight = 0;
                         }
+                        if (jsonObject.optJSONObject("comments") != null){
+                            photo.comments = new ArrayList<>();
+                            JSONArray comments = jsonObject.getJSONObject("comments").getJSONArray("data");
+                            for(int j = 0; j < (comments.length() < COMMENTS_COUNT ? comments.length()  : COMMENTS_COUNT); j++) {
+                                JSONObject commentObject = comments.getJSONObject(j);
+                                PhotoComment comment = new PhotoComment();
+                                comment.senderName = commentObject.getJSONObject("from").getString("username");
+                                comment.comment = commentObject.getString("text");
+                                photo.comments.add(comment);
+                            }
+                        }else{
+                            photo.comments = null;
+                        }
+
                          photos.add(photo);
                     }
                     photosAdapter.notifyDataSetChanged();

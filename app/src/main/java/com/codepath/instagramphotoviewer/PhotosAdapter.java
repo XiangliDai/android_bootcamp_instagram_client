@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.makeramen.RoundedImageView;
@@ -23,6 +24,7 @@ public class PhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView likes;
         ImageView photo;
         RoundedImageView avatar;
+        LinearLayout comments;
     }
 
     public PhotosAdapter(Context context, List<InstagramPhoto> objects) {
@@ -43,6 +45,7 @@ public class PhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             viewHolder.createdTime = (TextView)convertView.findViewById(R.id.tvCreatedTime);
             viewHolder.likes =(TextView) convertView.findViewById(R.id.tvlikes);
             viewHolder.avatar = (RoundedImageView) convertView.findViewById(R.id.rivAvatar);
+            viewHolder.comments = (LinearLayout) convertView.findViewById(R.id.list_comments);
             convertView.setTag(viewHolder);
         }
         else {
@@ -53,15 +56,29 @@ public class PhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         viewHolder.likes.setText(String.format("%s %s",photo.likeCount , getContext().getResources().getString(R.string.likes)));
         viewHolder.createdTime.setText(DateUtils.getRelativeTimeSpanString(photo.createdTime * 1000, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS));
 
+
+        viewHolder.photo.setImageResource(0);
         int deviceWidth = DeviceDimensionsHelper.getDisplayWidth(getContext());
         Picasso.with(getContext()).load(photo.imageUrl).resize(deviceWidth, 0).into(viewHolder.photo);
-
-
 
         Picasso.with(getContext())
                 .load(photo.avatarUrl)
                 .fit()
                 .into(viewHolder.avatar);
+
+
+        viewHolder.comments.removeAllViews();
+
+        for (PhotoComment comment : photo.comments) {
+            View line = viewHolder.comments.inflate(getContext(), R.layout.item_comment, null);
+            TextView tvCommentSender = (TextView) line.findViewById(R.id.tvCommentSender);
+            TextView tvComment = (TextView) line.findViewById(R.id.tvComment);
+            tvCommentSender.setText(comment.senderName);
+            tvComment.setText(comment.comment);
+            /* nested list's stuff */
+
+            viewHolder.comments.addView(line);
+        }
         return convertView;
     }
 }

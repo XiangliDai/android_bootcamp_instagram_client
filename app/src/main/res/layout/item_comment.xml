@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvCommentSender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textSize="12sp"
+            android:textColor="@color/primary"
+            />
+        <TextView
+            android:id="@+id/tvComment"
+            android:paddingLeft="@dimen/activity_small_margin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tvCommentSender"
+            android:fontFamily="sans-serif"
+            android:textSize="12sp"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
+</RelativeLayout>
