@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_horizontal_margin" >
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textSize="16sp"
+            android:textColor="@color/primary"
+            />
+        <TextView
+            android:id="@+id/tvCreatedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:layout_alignParentRight="true"
+            android:textSize="12sp" />
+        </RelativeLayout>
+    <ImageView
+        android:id="@+id/ivPhoto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_title"
+        android:cropToPadding="false"
+        android:adjustViewBounds="true"
+        android:minHeight="50dp"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/photo" />
+    <TextView
+        android:id="@+id/tvlikes"
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_like_margin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivPhoto"
+        android:fontFamily="sans-serif"
+        android:textSize="12sp"
+        android:textColor="@color/primary"/>
+    <TextView
+        android:id="@+id/tvCaption"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvlikes"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp"/>
+</RelativeLayout>
