@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.makeramen.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class PhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView createdTime;
         TextView likes;
         ImageView photo;
+        RoundedImageView avatar;
     }
 
     public PhotosAdapter(Context context, List<InstagramPhoto> objects) {
@@ -40,6 +42,7 @@ public class PhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             viewHolder.caption = (TextView) convertView.findViewById(R.id.tvCaption);
             viewHolder.createdTime = (TextView)convertView.findViewById(R.id.tvCreatedTime);
             viewHolder.likes =(TextView) convertView.findViewById(R.id.tvlikes);
+            viewHolder.avatar = (RoundedImageView) convertView.findViewById(R.id.rivAvatar);
             convertView.setTag(viewHolder);
         }
         else {
@@ -48,10 +51,17 @@ public class PhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         viewHolder.username.setText(photo.userName);
         viewHolder.caption.setText(photo.caption);
         viewHolder.likes.setText(String.format("%s %s",photo.likeCount , getContext().getResources().getString(R.string.likes)));
-        viewHolder.createdTime.setText(DateUtils.getRelativeTimeSpanString(photo.createdTime * 1000, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS ));
-        int deviceWidth = DeviceDimensionsHelper.getDisplayWidth(getContext());
+        viewHolder.createdTime.setText(DateUtils.getRelativeTimeSpanString(photo.createdTime * 1000, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS));
 
+        int deviceWidth = DeviceDimensionsHelper.getDisplayWidth(getContext());
         Picasso.with(getContext()).load(photo.imageUrl).resize(deviceWidth, 0).into(viewHolder.photo);
+
+
+
+        Picasso.with(getContext())
+                .load(photo.avatarUrl)
+                .fit()
+                .into(viewHolder.avatar);
         return convertView;
     }
 }

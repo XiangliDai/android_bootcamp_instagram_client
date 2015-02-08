@@ -54,8 +54,10 @@ public class PhotosActivity extends ActionBarActivity {
                         }
                         if (jsonObject.optJSONObject("user") != null){
                             photo.userName = jsonObject.getJSONObject("user").getString("username");
+                            photo.avatarUrl = jsonObject.getJSONObject("user").getString("profile_picture");
                         } else{
                             photo.userName = "";
+                            photo.avatarUrl = "";
                         }
                         if (jsonObject.optJSONObject("likes") != null){
                             photo.likeCount = Integer.parseInt(jsonObject.getJSONObject("likes").getString("count"));
