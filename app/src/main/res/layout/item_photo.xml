@@ -38,7 +38,9 @@
             android:fontFamily="sans-serif-light"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:drawableLeft="@drawable/clock"
+            android:drawablePadding="@dimen/activity_small_margin"/>
         </RelativeLayout>
     <ImageView
         android:id="@+id/ivPhoto"
@@ -61,7 +63,9 @@
         android:layout_below="@+id/ivPhoto"
         android:fontFamily="sans-serif"
         android:textSize="12sp"
-        android:textColor="@color/primary"/>
+        android:textColor="@color/primary"
+        android:drawableLeft="@drawable/like"
+        android:drawablePadding="@dimen/activity_small_margin"/>
     <TextView
         android:id="@+id/tvCaption"
         android:paddingLeft="@dimen/activity_normal_margin"
