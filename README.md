@@ -20,3 +20,4 @@ Advanced: Improve the user interface through styling and coloring
 Spent some time making the UI work across multiple phone resolutions by playing around with the RelativeLayout.
 
 Walkthrough of all user stories:
+![alt tag](https://github.com/XiangliDai/android_bootcamp_instagram_client/blob/master/week-1.gif)
