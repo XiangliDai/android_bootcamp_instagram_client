@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Popular Photos</string>
+    <string name="app_name">Instagram Popular Photos</string>
     <string name="action_settings">Settings</string>
     <string name="photo">image</string>
     <string name="likes">likes</string>
